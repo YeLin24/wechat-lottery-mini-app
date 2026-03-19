@@ -1,10 +1,12 @@
 <!-- 点名抽签 -->
 <view class="page">
   <view class="nav-bar">
-    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="back-btn" bindtap="goBack">‹</text>
     <text class="nav-title">点名器</text>
   </view>
+
   <view class="content">
+    <!-- 两种点名模式 -->
     <view class="mode-buttons">
       <view class="mode-btn" bindtap="onNumberMode">
         <text class="mode-icon">123</text>
@@ -17,12 +19,13 @@
     </view>
 
     <!-- 抽签结果 -->
-    <view class="result-area" wx:if="{{result !== null}}">
+    <view class="result-area" wx:if="{{started && result !== null}}">
       <view class="result-number">{{result}}</view>
     </view>
 
+    <!-- 操作按钮 -->
     <view class="action-area" wx:if="{{started}}">
-      <view class="action-btn primary" bindtap="onPick">{{picking ? '正在抽签...' : '开始点名'}}</view>
+      <view class="action-btn primary" bindtap="onPick">{{picking ? '正在点名...' : '开始点名'}}</view>
       <view class="action-btn" bindtap="onReset">重置</view>
     </view>
   </view>
@@ -33,7 +36,7 @@
       <view class="modal-title">设置</view>
       <view class="setting-row">
         <text class="setting-label">座号范围：1 - {{seatCount}}</text>
-        <slider min="1" max="100" value="{{seatCount}}" activeColor="#1E90FF" bindchange="onSeatCountChange" show-value />
+        <slider min="1" max="100" value="{{seatCount}}" activeColor="#409EFF" bindchange="onSeatCountChange" show-value />
       </view>
       <view class="modal-actions">
         <view class="modal-btn" bindtap="onConfirmNumber">确定</view>

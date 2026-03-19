@@ -1,17 +1,18 @@
 <!-- 抽排序 -->
 <view class="page">
   <view class="nav-bar">
-    <text class="back-btn" bindtap="goBack">←</text>
-    <text class="nav-title">抽排序</text>
+    <text class="back-btn" bindtap="goBack">‹</text>
+    <text class="nav-title">抽顺序</text>
   </view>
+
   <view class="content">
     <!-- 设置弹窗 -->
     <view class="modal-overlay" wx:if="{{showSetting}}" bindtap="closeSetting">
       <view class="modal-content" catchtap="stopPropagation">
         <view class="modal-title">设置</view>
         <view class="setting-row">
-          <text class="setting-label">人数</text>
-          <slider min="2" max="50" value="{{totalCount}}" activeColor="#1E90FF" bindchange="onCountChange" show-value />
+          <text class="setting-label">人数：</text>
+          <input class="count-input" type="number" value="{{totalCount}}" bindinput="onCountInput" placeholder="请输入人数" />
         </view>
         <view class="modal-actions">
           <view class="modal-btn" bindtap="onConfirmSetting">确定</view>
@@ -20,24 +21,24 @@
       </view>
     </view>
 
-    <!-- 排序结果 -->
+    <!-- 标题 -->
     <view class="result-header" wx:if="{{started}}">
       <text class="result-title">抽卡排列顺序</text>
-    </view>
-    <view class="pick-history" wx:if="{{pickOrder.length > 0}}">
-      <text class="pick-label">抽签的顺序：</text>
-      <text class="pick-text" wx:for="{{pickOrder}}" wx:key="index">第{{index+1}}抽：{{item}} </text>
     </view>
 
     <!-- 卡片网格 -->
     <view class="card-grid" wx:if="{{started}}">
       <view class="card-item {{item.picked ? 'picked' : ''}}" wx:for="{{cards}}" wx:key="index" bindtap="onPickCard" data-index="{{index}}">
         <view class="card-inner" wx:if="{{!item.picked}}">
-          <text class="card-icon"> </text>
+          <text class="card-icon">🦄</text>
         </view>
         <view class="card-inner picked" wx:else>
           <text class="card-number">{{item.number}}</text>
         </view>
+      </view>
+      <!-- 空位 -->
+      <view class="card-item empty">
+        <text class="empty-text">空</text>
       </view>
     </view>
 
@@ -45,6 +46,8 @@
     <view class="start-area" wx:if="{{!started}}">
       <view class="action-btn primary" bindtap="onShowSetting">开始抽排序</view>
     </view>
+
+    <!-- 重置按钮 -->
     <view class="action-area" wx:if="{{started}}">
       <view class="action-btn" bindtap="onReset">重置</view>
     </view>

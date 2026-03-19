@@ -13,12 +13,44 @@ Page({
   data: {
     result: '',
     running: false,
-    timer: null
+    startTime: 0,
+    timerInterval: null,
+    timerText: '00:00:00'
+  },
+
+  onLoad() {
+    this.startTimer();
+  },
+
+  onUnload() {
+    if (this.data.timerInterval) {
+      clearInterval(this.data.timerInterval);
+    }
+  },
+
+  startTimer() {
+    const startTime = Date.now();
+    this.setData({ startTime });
+
+    const timerInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const hours = Math.floor(elapsed / 3600000);
+      const minutes = Math.floor((elapsed % 3600000) / 60000);
+      const seconds = Math.floor((elapsed % 60000) / 1000);
+      const timerText =
+        String(hours).padStart(2, '0') + ':' +
+        String(minutes).padStart(2, '0') + ':' +
+        String(seconds).padStart(2, '0');
+      this.setData({ timerText });
+    }, 1000);
+
+    this.setData({ timerInterval });
   },
 
   onPick() {
     if (this.data.running) return;
     this.setData({ running: true });
+
     let count = 0;
     const maxCount = 20;
     const timer = setInterval(() => {
@@ -30,7 +62,6 @@ Page({
         this.setData({ running: false });
       }
     }, 80);
-    this.setData({ timer });
   },
 
   onShareFriend() {

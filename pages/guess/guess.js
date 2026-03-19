@@ -1,50 +1,69 @@
+const randomUtil = require('../../utils/random');
+
 Page({
   data: {
     correctCount: 0,
     wrongCount: 0,
     running: false,
-    resultIcon: '',
-    resultType: '',
-    timer: null
+    startTime: 0,
+    timerInterval: null,
+    timerText: '00:00:00'
+  },
+
+  onLoad() {
+    this.startTimer();
+  },
+
+  onUnload() {
+    if (this.data.timerInterval) {
+      clearInterval(this.data.timerInterval);
+    }
+  },
+
+  startTimer() {
+    const startTime = Date.now();
+    this.setData({ startTime, running: false });
+
+    const timerInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const hours = Math.floor(elapsed / 3600000);
+      const minutes = Math.floor((elapsed % 3600000) / 60000);
+      const seconds = Math.floor((elapsed % 60000) / 1000);
+      const timerText =
+        String(hours).padStart(2, '0') + ':' +
+        String(minutes).padStart(2, '0') + ':' +
+        String(seconds).padStart(2, '0');
+      this.setData({ timerText });
+    }, 1000);
+
+    this.setData({ timerInterval });
   },
 
   onStart() {
     if (this.data.running) return;
+
     this.setData({ running: true });
-    let toggle = true;
-    const timer = setInterval(() => {
-      toggle = !toggle;
-      if (toggle) {
-        this.setData({ resultIcon: '✓', resultType: 'correct' });
-      } else {
-        this.setData({ resultIcon: '✗', resultType: 'wrong' });
+
+    // 快速切换对错效果
+    let count = 0;
+    const maxCount = 20;
+    const toggleTimer = setInterval(() => {
+      count++;
+      const isCorrect = randomUtil.randomInt(0, 1) === 1;
+      if (count >= maxCount) {
+        clearInterval(toggleTimer);
+        // 最终结果
+        const finalCorrect = randomUtil.randomInt(0, 1) === 1;
+        this.setData({
+          running: false,
+          correctCount: finalCorrect ? this.data.correctCount + 1 : this.data.correctCount,
+          wrongCount: finalCorrect ? this.data.wrongCount : this.data.wrongCount + 1
+        });
       }
-    }, 100);
-    this.setData({ timer });
+    }, 80);
   },
 
-  onStop() {
-    if (this.data.timer) clearInterval(this.data.timer);
-    const isCorrect = this.data.resultType === 'correct';
-    this.setData({
-      running: false,
-      correctCount: isCorrect ? this.data.correctCount + 1 : this.data.correctCount,
-      wrongCount: isCorrect ? this.data.wrongCount : this.data.wrongCount + 1,
-      timer: null
-    });
-  },
-
-  onReset() {
-    if (this.data.timer) clearInterval(this.data.timer);
-    this.setData({
-      correctCount: 0,
-      wrongCount: 0,
-      running: false,
-      resultIcon: '',
-      resultType: '',
-      timer: null
-    });
-  },
-
-  goBack() { wx.navigateBack(); }
+  goBack() {
+    wx.navigateBack();
+  }
 });

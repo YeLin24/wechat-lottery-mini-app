@@ -2,31 +2,12 @@ const app = getApp();
 
 Page({
   data: {
-    currentTab: 0,
-    titleTapCount: 0,     // 标题点击计数（用于隐藏入口）
+    titleTapCount: 0,
     lastTapTime: 0
   },
 
   onLoad() {
     // 页面加载
-  },
-
-  /**
-   * 切换Tab（好友猜拳 / 随机口算 / 真心话）
-   * 注：此Tab仅为视觉切换，实际功能入口在下方6宫格按钮
-   */
-  switchTab(e) {
-    const index = parseInt(e.currentTarget.dataset.index);
-    this.setData({ currentTab: index });
-    // 点击Tab直接跳转到对应页面
-    const tabPages = [
-      '/pages/friend-guess/friend-guess',
-      '/pages/mental-math/mental-math',
-      '/pages/truth-dare/truth-dare'
-    ];
-    if (tabPages[index]) {
-      wx.navigateTo({ url: tabPages[index] });
-    }
   },
 
   /**
@@ -40,7 +21,10 @@ Page({
       'sort-lottery': '/pages/sort-lottery/sort-lottery',
       'name-picker': '/pages/name-picker/name-picker',
       'guess': '/pages/guess/guess',
-      'today-eat': '/pages/today-eat/today-eat'
+      'today-eat': '/pages/today-eat/today-eat',
+      'friend-guess': '/pages/friend-guess/friend-guess',
+      'mental-math': '/pages/mental-math/mental-math',
+      'truth-dare': '/pages/truth-dare/truth-dare'
     };
     if (urlMap[page]) {
       wx.navigateTo({ url: urlMap[page] });
@@ -48,22 +32,19 @@ Page({
   },
 
   /**
-   * 隐藏入口：连续快速点击标题区域5次进入后台配置
+   * 隐藏入口：连续快速点击标题区域 5 次进入后台配置
    */
   onTitleTap() {
     const now = Date.now();
     if (now - this.data.lastTapTime < 500) {
-      // 500ms内的连续点击
       const newCount = this.data.titleTapCount + 1;
       if (newCount >= 5) {
-        // 进入后台配置页
         wx.navigateTo({ url: '/pages/admin/admin' });
         this.setData({ titleTapCount: 0, lastTapTime: 0 });
         return;
       }
       this.setData({ titleTapCount: newCount, lastTapTime: now });
     } else {
-      // 超时，重置
       this.setData({ titleTapCount: 1, lastTapTime: now });
     }
   },
@@ -72,7 +53,10 @@ Page({
    * 分享好友
    */
   onShare() {
-    // 触发微信自带分享
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage']
+    });
   },
 
   /**

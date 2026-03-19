@@ -1,10 +1,18 @@
 <!-- 今天吃什么 -->
 <view class="page">
   <view class="nav-bar">
-    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="back-btn" bindtap="goBack">‹</text>
     <text class="nav-title">今天吃什么</text>
   </view>
+
   <view class="content">
+    <!-- 计时器 -->
+    <view class="timer-display">
+      <text class="timer-icon">📞</text>
+      <text class="timer-text">{{timerText}}</text>
+    </view>
+
+    <!-- 提示文字 -->
     <view class="hint-text">请点击开始</view>
 
     <!-- 结果展示 -->
@@ -12,17 +20,18 @@
       <view class="result-food">{{result}}</view>
     </view>
 
+    <!-- 操作按钮 -->
     <view class="action-area">
-      <view class="action-btn primary hand" bindtap="onPick">
-        <text class="action-icon"> </text>
+      <view class="action-btn" bindtap="onPick">
+        <text class="btn-icon">✋</text>
         <text>开始抽选</text>
       </view>
       <view class="action-btn" bindtap="onShareFriend">
-        <text class="action-icon"> </text>
+        <text class="btn-icon">↗</text>
         <text>朋友帮选</text>
       </view>
       <view class="action-btn" bindtap="onTellFriend">
-        <text class="action-icon"> </text>
+        <text class="btn-icon">🍜</text>
         <text>告诉朋友吃什么</text>
       </view>
     </view>

@@ -1,142 +1,183 @@
 .page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #87CEEB 0%, #5BADE5 100%);
-  display: flex;
-  flex-direction: column;
+  background: linear-gradient(180deg, #409EFF 0%, #409EFF 30%, #ffffff 30%);
   padding-bottom: 40rpx;
 }
 
 /* 标题区域 */
 .header {
   text-align: center;
-  padding: 60rpx 0 30rpx;
-}
-
-.logo-area {
-  margin-bottom: 16rpx;
-}
-
-.logo {
-  width: 100rpx;
-  height: 100rpx;
+  padding: 40rpx 0 20rpx;
 }
 
 .title {
-  font-size: 42rpx;
-  color: #fff;
-  font-weight: bold;
+  font-size: 40rpx;
+  color: #ffffff;
+  font-weight: 500;
   letter-spacing: 2rpx;
 }
 
 .subtitle {
   font-size: 26rpx;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   margin-top: 8rpx;
 }
 
-/* Tab导航栏 */
-.tab-bar {
+/* 顶部功能 Tab */
+.top-functions {
   display: flex;
-  background-color: #fff;
-  margin: 0 30rpx;
+  background-color: #ffffff;
+  margin: 20rpx 30rpx;
   border-radius: 16rpx;
   overflow: hidden;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
 }
 
-.tab-item {
+.top-function-item {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20rpx 0;
+  padding: 24rpx 0;
+}
+
+.function-icon {
+  font-size: 40rpx;
+  margin-bottom: 8rpx;
+}
+
+.function-text {
   font-size: 24rpx;
-  color: #666;
-  position: relative;
+  color: #409EFF;
 }
 
-.tab-item.active {
-  color: #333;
-  font-weight: bold;
+/* 功能卡片区域 */
+.function-cards {
+  padding: 20rpx 24rpx;
 }
 
-.tab-item.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 25%;
-  width: 50%;
-  height: 4rpx;
-  background-color: #1E90FF;
-  border-radius: 2rpx;
-}
-
-.tab-icon {
-  font-size: 36rpx;
-  margin-bottom: 4rpx;
-}
-
-.tab-text {
-  font-size: 24rpx;
-}
-
-/* 功能按钮网格 */
-.function-grid {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 30rpx;
-  gap: 20rpx;
-  justify-content: center;
-}
-
-.function-btn {
-  width: calc(33.33% - 14rpx);
-  background-color: #1E90FF;
-  border-radius: 20rpx;
+/* 大卡片 */
+.card-large {
+  background: linear-gradient(135deg, #409EFF 0%, #66b1ff 100%);
+  border-radius: 16rpx;
+  height: 160rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40rpx 10rpx;
-  box-shadow: 0 6rpx 20rpx rgba(30, 144, 255, 0.3);
+  margin-bottom: 20rpx;
+  position: relative;
+  box-shadow: 0 4rpx 16rpx rgba(64, 158, 255, 0.3);
 }
 
-.function-btn:active {
-  opacity: 0.8;
-  transform: scale(0.96);
+.card-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.25);
+  font-size: 20rpx;
+  color: #ffffff;
+  padding: 4rpx 12rpx;
+  border-radius: 0 16rpx 0 16rpx;
 }
 
-.btn-icon {
-  font-size: 48rpx;
+.card-corner.new {
+  background: rgba(100, 200, 100, 0.4);
+}
+
+.card-icon {
+  font-size: 64rpx;
+  color: #ffffff;
   margin-bottom: 12rpx;
 }
 
-.btn-label {
+.card-label {
+  font-size: 28rpx;
+  color: #ffffff;
+}
+
+/* 卡片行 */
+.card-row {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 中等卡片 */
+.card-medium {
+  flex: 1;
+  background: linear-gradient(135deg, #409EFF 0%, #66b1ff 100%);
+  border-radius: 16rpx;
+  height: 180rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4rpx 16rpx rgba(64, 158, 255, 0.3);
+}
+
+.card-medium .card-icon {
+  font-size: 56rpx;
+  color: #ffffff;
+  margin-bottom: 10rpx;
+}
+
+.card-medium .card-label {
+  font-size: 26rpx;
+  color: #ffffff;
+}
+
+/* 小卡片列 */
+.card-small-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.card-small {
+  flex: 1;
+  background: linear-gradient(135deg, #409EFF 0%, #66b1ff 100%);
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4rpx 16rpx rgba(64, 158, 255, 0.3);
+  min-width: 200rpx;
+}
+
+.card-small .card-icon {
+  font-size: 40rpx;
+  color: #ffffff;
+  margin-bottom: 8rpx;
+}
+
+.card-small .card-label {
   font-size: 24rpx;
-  color: #fff;
+  color: #ffffff;
 }
 
 /* 底部操作栏 */
 .bottom-bar {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 20rpx;
   padding: 30rpx;
-  margin-top: auto;
+  margin-top: 20rpx;
 }
 
 .bottom-btn {
-  flex: 1;
-  background-color: #1E90FF;
-  color: #fff;
-  border-radius: 16rpx;
-  padding: 24rpx 0;
-  text-align: center;
-  font-size: 28rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8rpx;
-  box-shadow: 0 4rpx 16rpx rgba(30, 144, 255, 0.25);
+  gap: 10rpx;
+  padding: 20rpx 40rpx;
+  background: linear-gradient(135deg, #409EFF 0%, #66b1ff 100%);
+  border-radius: 50rpx;
+  box-shadow: 0 4rpx 16rpx rgba(64, 158, 255, 0.3);
 }
 
 .bottom-btn:active {
@@ -145,4 +186,16 @@
 
 .bottom-icon {
   font-size: 32rpx;
+  color: #ffffff;
+}
+
+.bottom-btn text {
+  font-size: 26rpx;
+  color: #ffffff;
+}
+
+.bottom-divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: linear-gradient(180deg, transparent, #409EFF, transparent);
 }

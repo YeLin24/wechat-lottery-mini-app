@@ -1,59 +1,51 @@
 <!-- 不重复随机数字抽签 -->
 <view class="page">
   <view class="nav-bar">
-    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="back-btn" bindtap="goBack">‹</text>
     <text class="nav-title">不重复随机数字抽签</text>
   </view>
 
   <view class="content">
-    <view class="hint-text">请生成随机数</view>
-
-    <!-- 当前随机数 -->
-    <view class="result-area" wx:if="{{currentNum !== null}}">
-      <view class="result-badge">当前随机数：{{currentNum}}</view>
-    </view>
-
-    <!-- 已选/未选数字 -->
-    <view class="number-display">
-      <view class="number-section">
-        <text class="section-label">已选中的数字</text>
-        <view class="number-chips">
-          <text class="chip selected" wx:for="{{selected}}" wx:key="*this">{{item}}</text>
-          <text class="empty-text" wx:if="{{selected.length === 0}}">空</text>
-        </view>
+    <!-- 结果展示大卡片 -->
+    <view class="result-card">
+      <view class="result-title">请生成随机数</view>
+      <view class="result-section">
+        <text class="result-label">已选中的数字:</text>
+        <text class="result-value">{{selected.length > 0 ? selected.join(' ') : '空'}}</text>
       </view>
-      <view class="number-section">
-        <text class="section-label">未选中的数字</text>
-        <view class="number-chips">
-          <text class="chip" wx:for="{{unselected}}" wx:key="*this">{{item}}</text>
-        </view>
+      <view class="result-section">
+        <text class="result-label">未选中的数字:</text>
+        <text class="result-value unselected">{{unselected.join(' ')}}</text>
       </view>
     </view>
 
-    <!-- 配置 -->
+    <!-- 配置区域 -->
     <view class="config-area">
       <view class="config-row">
-        <text class="config-label">最小数值</text>
+        <text class="config-label">最小数值:</text>
         <input class="config-input" type="number" value="{{minValue}}" bindinput="onMinInput" placeholder="0" />
       </view>
       <view class="config-row">
-        <text class="config-label">最大数值</text>
+        <text class="config-label">最大数值:</text>
         <input class="config-input" type="number" value="{{maxValue}}" bindinput="onMaxInput" placeholder="10" />
       </view>
       <view class="config-row">
-        <text class="config-label">生成个数</text>
+        <text class="config-label">生成个数:</text>
         <input class="config-input" type="number" value="{{count}}" bindinput="onCountInput" placeholder="1" />
       </view>
     </view>
 
     <!-- 操作按钮 -->
-    <view class="action-area">
-      <view class="action-row">
+    <view class="button-area">
+      <view class="button-row">
         <view class="action-btn" bindtap="onReset">重置</view>
         <view class="action-btn primary" bindtap="onGenerate">生成</view>
       </view>
-      <view class="action-row single">
-        <view class="action-btn" bindtap="onShare">分享本次结果</view>
+      <view class="button-row single">
+        <view class="action-btn share-btn" bindtap="onShare">
+          <text class="btn-icon">↗</text>
+          <text>分享本次结果</text>
+        </view>
       </view>
     </view>
   </view>

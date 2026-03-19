@@ -1,54 +1,74 @@
 <!-- 随机口算 -->
 <view class="page">
   <view class="nav-bar">
-    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="back-btn" bindtap="goBack">‹</text>
     <text class="nav-title">随机口算</text>
   </view>
+
   <view class="content">
-    <!-- 设置弹窗 -->
-    <view class="modal-overlay" wx:if="{{showSetting}}" bindtap="closeSetting">
-      <view class="modal-content" catchtap="stopPropagation">
-        <view class="modal-title">设置</view>
-        <view class="setting-group">
-          <text class="setting-label">位</text>
-          <view class="setting-options">
-            <view class="option {{digits === 1 ? 'active' : ''}}" bindtap="onSetDigits" data-val="1">个</view>
-            <view class="option {{digits === 2 ? 'active' : ''}}" bindtap="onSetDigits" data-val="2">十</view>
+    <!-- 设置标题 -->
+    <view class="settings-title">设置</view>
+
+    <!-- 设置面板 -->
+    <view class="settings-panel">
+      <!-- 数位 -->
+      <view class="setting-group">
+        <text class="setting-label">数位</text>
+        <view class="checkbox-options">
+          <view class="checkbox-item {{digits === 1 ? 'checked' : ''}}" bindtap="onSetDigits" data-val="1">
+            <text class="checkbox {{digits === 1 ? 'checked' : ''}}"></text>
+            <text>个</text>
           </view>
-        </view>
-        <view class="setting-group">
-          <text class="setting-label">运算</text>
-          <view class="setting-options">
-            <view class="option {{operator === '+' ? 'active' : ''}}" bindtap="onSetOp" data-val="+">加</view>
-            <view class="option {{operator === '-' ? 'active' : ''}}" bindtap="onSetOp" data-val="-">减</view>
-            <view class="option {{operator === '×' ? 'active' : ''}}" bindtap="onSetOp" data-val="×">乘</view>
+          <view class="checkbox-item {{digits === 2 ? 'checked' : ''}}" bindtap="onSetDigits" data-val="2">
+            <text class="checkbox {{digits === 2 ? 'checked' : ''}}"></text>
+            <text>十</text>
           </view>
-        </view>
-        <view class="setting-group">
-          <text class="setting-label">数字</text>
-          <view class="setting-options">
-            <view class="option {{numCount === 2 ? 'active' : ''}}" bindtap="onSetNumCount" data-val="2">2个</view>
-            <view class="option {{numCount === 3 ? 'active' : ''}}" bindtap="onSetNumCount" data-val="3">3个</view>
+          <view class="checkbox-item {{digits === 3 ? 'checked' : ''}}" bindtap="onSetDigits" data-val="3">
+            <text class="checkbox {{digits === 3 ? 'checked' : ''}}"></text>
+            <text>百</text>
           </view>
-        </view>
-        <view class="modal-actions">
-          <view class="modal-btn" bindtap="onConfirmSetting">确定</view>
+          <view class="checkbox-item {{digits === 4 ? 'checked' : ''}}" bindtap="onSetDigits" data-val="4">
+            <text class="checkbox {{digits === 4 ? 'checked' : ''}}"></text>
+            <text>千</text>
+          </view>
         </view>
       </view>
-    </view>
 
-    <!-- 题目展示 -->
-    <view class="question-area" wx:if="{{question}}">
-      <view class="question-text">{{question}}=？</view>
-      <view class="answer-area" wx:if="{{showAnswer}}">
-        <text class="answer-text">答案：{{answer}}</text>
+      <!-- 运算 -->
+      <view class="setting-group">
+        <text class="setting-label">运算</text>
+        <view class="checkbox-options">
+          <view class="checkbox-item {{operator === '+' ? 'checked' : ''}}" bindtap="onSetOp" data-val="+">
+            <text class="checkbox {{operator === '+' ? 'checked' : ''}}"></text>
+            <text>加</text>
+          </view>
+          <view class="checkbox-item {{operator === '-' ? 'checked' : ''}}" bindtap="onSetOp" data-val="-">
+            <text class="checkbox {{operator === '-' ? 'checked' : ''}}"></text>
+            <text>减</text>
+          </view>
+          <view class="checkbox-item {{operator === '×' ? 'checked' : ''}}" bindtap="onSetOp" data-val="×">
+            <text class="checkbox {{operator === '×' ? 'checked' : ''}}"></text>
+            <text>乘</text>
+          </view>
+          <view class="checkbox-item {{operator === '÷' ? 'checked' : ''}}" bindtap="onSetOp" data-val="÷">
+            <text class="checkbox {{operator === '÷' ? 'checked' : ''}}"></text>
+            <text>除</text>
+          </view>
+        </view>
       </view>
-      <view class="action-btn" bindtap="onShowAnswer" wx:if="{{!showAnswer}}">查看答案</view>
-    </view>
 
-    <view class="action-area">
-      <view class="action-btn primary" bindtap="onGenerate">生成题目</view>
-      <view class="action-btn" bindtap="onShare">分享</view>
+      <!-- 数字个数 -->
+      <view class="setting-group">
+        <text class="setting-label">数字</text>
+        <view class="toggle-options">
+          <view class="toggle-btn {{numCount === 2 ? 'active' : ''}}" bindtap="onSetNumCount" data-val="2">2 个</view>
+          <view class="toggle-btn {{numCount === 3 ? 'active' : ''}}" bindtap="onSetNumCount" data-val="3">3 个</view>
+          <view class="toggle-btn {{numCount === 4 ? 'active' : ''}}" bindtap="onSetNumCount" data-val="4">4 个</view>
+        </view>
+      </view>
+
+      <!-- 确认按钮 -->
+      <view class="confirm-btn" bindtap="onConfirmSetting">确定</view>
     </view>
   </view>
 </view>

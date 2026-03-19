@@ -2,69 +2,78 @@
 <view class="page">
   <!-- 标题区域 -->
   <view class="header">
-    <view class="logo-area">
-      <image class="logo" src="/images/logo.svg" mode="aspectFit"></image>
-    </view>
     <view class="title">Hello Friends</view>
     <view class="subtitle">欢迎使用 随机抽签助手</view>
   </view>
 
-  <!-- 功能导航Tab -->
-  <view class="tab-bar">
-    <view class="tab-item {{currentTab === 0 ? 'active' : ''}}" bindtap="switchTab" data-index="0">
-      <text class="tab-icon"> </text>
-      <text class="tab-text">好友猜拳</text>
+  <!-- 顶部功能 Tab -->
+  <view class="top-functions">
+    <view class="top-function-item" bindtap="goToPage" data-page="friend-guess">
+      <text class="function-icon">🤜</text>
+      <text class="function-text">好友猜拳</text>
     </view>
-    <view class="tab-item {{currentTab === 1 ? 'active' : ''}}" bindtap="switchTab" data-index="1">
-      <text class="tab-icon">✏️</text>
-      <text class="tab-text">随机口算</text>
+    <view class="top-function-item" bindtap="goToPage" data-page="mental-math">
+      <text class="function-icon">➗</text>
+      <text class="function-text">随机口算</text>
     </view>
-    <view class="tab-item {{currentTab === 2 ? 'active' : ''}}" bindtap="switchTab" data-index="2">
-      <text class="tab-icon"> </text>
-      <text class="tab-text">真心话</text>
+    <view class="top-function-item" bindtap="goToPage" data-page="truth-dare">
+      <text class="function-icon">❤</text>
+      <text class="function-text">真心话</text>
     </view>
   </view>
 
-  <!-- 功能按钮区域（2行3列） -->
-  <view class="function-grid">
-    <view class="function-btn" bindtap="goToPage" data-page="random-number">
-      <text class="btn-icon">❓</text>
-      <text class="btn-label">随机数字抽签</text>
+  <!-- 功能卡片区域 -->
+  <view class="function-cards">
+    <!-- 随机数字抽签（大卡片） -->
+    <view class="card-large" bindtap="goToPage" data-page="random-number">
+      <view class="card-corner">热</view>
+      <text class="card-icon">?</text>
+      <text class="card-label">随机数字抽签</text>
     </view>
-    <view class="function-btn" bindtap="goToPage" data-page="unique-random">
-      <text class="btn-icon"> </text>
-      <text class="btn-label">不重复随机</text>
+
+    <!-- 第二行 -->
+    <view class="card-row">
+      <view class="card-medium" bindtap="goToPage" data-page="name-picker">
+        <view class="card-corner">热</view>
+        <text class="card-icon">👤</text>
+        <text class="card-label">点名抽签</text>
+      </view>
+      <view class="card-small-col">
+        <view class="card-small" bindtap="goToPage" data-page="unique-random">
+          <view class="card-corner new">新</view>
+          <text class="card-icon">②</text>
+          <text class="card-label">不重复随机</text>
+        </view>
+        <view class="card-small" bindtap="goToPage" data-page="sort-lottery">
+          <text class="card-icon">↓</text>
+          <text class="card-label">抽排序</text>
+        </view>
+      </view>
     </view>
-    <view class="function-btn" bindtap="goToPage" data-page="sort-lottery">
-      <text class="btn-icon">➡️</text>
-      <text class="btn-label">抽排序</text>
-    </view>
-    <view class="function-btn" bindtap="goToPage" data-page="name-picker">
-      <text class="btn-icon"> </text>
-      <text class="btn-label">点名抽签</text>
-    </view>
-    <view class="function-btn" bindtap="goToPage" data-page="guess">
-      <text class="btn-icon">⭕</text>
-      <text class="btn-label">猜对错</text>
-    </view>
-    <view class="function-btn" bindtap="goToPage" data-page="today-eat">
-      <text class="btn-icon"> </text>
-      <text class="btn-label">今天吃什么</text>
+
+    <!-- 第三行 -->
+    <view class="card-row">
+      <view class="card-medium" bindtap="goToPage" data-page="guess">
+        <text class="card-icon">⭕</text>
+        <text class="card-label">猜对错</text>
+      </view>
+      <view class="card-medium" bindtap="goToPage" data-page="today-eat">
+        <text class="card-icon">🍴</text>
+        <text class="card-label">今天吃什么</text>
+      </view>
     </view>
   </view>
 
   <!-- 底部操作栏 -->
   <view class="bottom-bar">
     <view class="bottom-btn" bindtap="onShare">
-      <text class="bottom-icon"> </text>
+      <text class="bottom-icon">↗</text>
       <text>分享好友</text>
     </view>
+    <view class="bottom-divider"></view>
     <view class="bottom-btn" bindtap="onFeedback">
-      <text class="bottom-icon"> </text>
+      <text class="bottom-icon">☺</text>
       <text>建议/投诉</text>
     </view>
   </view>
-
-  <!-- 隐藏入口：连续点击标题区域5次进入后台配置 -->
-  <!-- 用户需要快速连续点击标题5次 -->
 </view>

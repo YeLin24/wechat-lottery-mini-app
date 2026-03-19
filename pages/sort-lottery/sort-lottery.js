@@ -20,8 +20,9 @@ Page({
 
   stopPropagation() {},
 
-  onCountChange(e) {
-    this.setData({ totalCount: e.detail.value });
+  onCountInput(e) {
+    const value = parseInt(e.detail.value) || 20;
+    this.setData({ totalCount: value >= 2 && value <= 50 ? value : 20 });
   },
 
   onConfirmSetting() {
