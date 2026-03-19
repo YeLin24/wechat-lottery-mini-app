@@ -11,31 +11,20 @@ Page({
     clickCount: 0,
     showHistory: false,
     history: [],
-    results: [], // 多个结果时的数组
-    // 图片模式相关
-    imageMode: false, // 是否为图片模式
-    currentImage: null, // 当前选中的图片文件名
-    imageList: [] // 图片列表
+    results: [] // 多个结果时的数组
   },
 
   onLoad() {
-    const imageList = random.getImageList();
     this.setData({
-      history: storage.getHistory(),
-      imageList: imageList
+      history: storage.getHistory()
     });
   },
 
   /**
-   * 切换模式（数字/图片）
+   * 跳转到配置页面
    */
-  onToggleMode() {
-    const { imageMode } = this.data;
-    this.setData({
-      imageMode: !imageMode,
-      result: null,
-      currentImage: null
-    });
+  goToAdmin() {
+    wx.navigateTo({ url: '/pages/admin/admin' });
   },
 
   /**
@@ -70,77 +59,55 @@ Page({
   },
 
   /**
-   * 核心功能：生成随机数/随机图片
-   * 使用带规则覆盖的随机数生成器（数字模式）或图片随机选择器（图片模式）
+   * 核心功能：生成随机数
+   * 使用带规则覆盖的随机数生成器
    */
   onGenerate() {
-    const { minValue, maxValue, count, allowDuplicate, imageMode } = this.data;
+    const { minValue, maxValue, count, allowDuplicate } = this.data;
 
-    if (imageMode) {
-      // 图片模式
-      const result = random.randomImage();
-      if (!result) {
-        wx.showToast({ title: '图片列表为空', icon: 'none' });
-        return;
+    // 参数校验
+    if (minValue > maxValue) {
+      wx.showToast({ title: '最小值不能大于最大值', icon: 'none' });
+      return;
+    }
+    if (count < 1) {
+      wx.showToast({ title: '生成个数至少为 1', icon: 'none' });
+      return;
+    }
+
+    if (count === 1) {
+      // 单个随机数：使用带规则覆盖的生成器
+      const result = random.generateWithRules(minValue, maxValue);
+      this.setData({
+        result: result.number,
+        clickCount: result.clickCount,
+        results: [result.number]
+      });
+      // 保存到历史
+      storage.addHistory(result.number);
+    } else {
+      // 多个随机数
+      const results = [];
+      for (let i = 0; i < count; i++) {
+        const r = random.generateWithRules(minValue, maxValue);
+        results.push(r.number);
       }
       this.setData({
-        currentImage: result,
-        result: result,
-        clickCount: storage.getAndIncrementImageCounter()
+        result: results.join(', '),
+        results: results
       });
-      // 保存到图片历史
-      storage.addImageHistory(result);
-      this.setData({ history: storage.getImageHistory() });
-    } else {
-      // 数字模式
-      // 参数校验
-      if (minValue > maxValue) {
-        wx.showToast({ title: '最小值不能大于最大值', icon: 'none' });
-        return;
-      }
-      if (count < 1) {
-        wx.showToast({ title: '生成个数至少为 1', icon: 'none' });
-        return;
-      }
-
-      if (count === 1) {
-        // 单个随机数：使用带规则覆盖的生成器
-        const result = random.generateWithRules(minValue, maxValue);
-        this.setData({
-          result: result.number,
-          clickCount: result.clickCount,
-          results: [result.number]
-        });
-        // 保存到历史
-        storage.addHistory(result.number);
-      } else {
-        // 多个随机数
-        const results = [];
-        for (let i = 0; i < count; i++) {
-          const r = random.generateWithRules(minValue, maxValue);
-          results.push(r.number);
-        }
-        this.setData({
-          result: results.join(', '),
-          results: results
-        });
-        results.forEach(n => storage.addHistory(n));
-      }
-
-      // 刷新历史
-      this.setData({ history: storage.getHistory() });
+      results.forEach(n => storage.addHistory(n));
     }
+
+    // 刷新历史
+    this.setData({ history: storage.getHistory() });
   },
 
   /**
    * 重置
    */
   onReset() {
-    if (this.data.imageMode) {
-      storage.resetImageCounter();
-    } else {
-      storage.resetCounter();
-    }
+    storage.resetCounter();
     this.setData({
       minValue: 0,
       maxValue: 10,
@@ -148,8 +115,7 @@ Page({
       allowDuplicate: false,
       result: null,
       clickCount: 0,
-      results: [],
-      currentImage: null
+      results: []
     });
     wx.showToast({ title: '已重置', icon: 'success' });
   },
@@ -163,11 +129,8 @@ Page({
       return;
     }
     // 复制到剪贴板供分享
-    const shareText = this.data.imageMode
-      ? `我抽中的图片是：${this.data.currentImage}`
-      : `我抽中的数字是：${this.data.result}`;
     wx.setClipboardData({
-      data: shareText,
+      data: `我抽中的数字是：${this.data.result}`,
       success() {
         wx.showToast({ title: '已复制，可粘贴分享', icon: 'success' });
       }
@@ -191,12 +154,12 @@ Page({
   },
 
   /**
-   * 显示历史记录
+   * 打开历史记录弹窗
    */
-  onShowHistory() {
+  openHistoryModal() {
     this.setData({
       showHistory: true,
-      history: this.data.imageMode ? storage.getImageHistory() : storage.getHistory()
+      history: storage.getHistory()
     });
   },
 
@@ -221,29 +184,10 @@ Page({
       content: '确定要清除所有历史记录吗？',
       success: (res) => {
         if (res.confirm) {
-          if (this.data.imageMode) {
-            storage.clearImageHistory();
-            this.setData({ history: [] });
-          } else {
-            storage.clearHistory();
-            this.setData({ history: [] });
-          }
+          storage.clearHistory();
+          this.setData({ history: [] });
+          this.setData({ showHistory: false });
           wx.showToast({ title: '已清除', icon: 'success' });
-        }
-      }
-    });
-  },
-
-  /**
-   * 长按结果 → 快速进入后台配置（隐藏入口）
-   */
-  onResultLongPress() {
-    wx.showModal({
-      title: '提示',
-      content: '是否进入后台配置？',
-      success: (res) => {
-        if (res.confirm) {
-          wx.navigateTo({ url: '/pages/admin/admin' });
         }
       }
     });
