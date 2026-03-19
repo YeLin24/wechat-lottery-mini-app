@@ -9,6 +9,8 @@ const KEYS = {
   HISTORY: 'lottery_history',     // 历史记录 [{ time, number }]
   UNIQUE_SELECTED: 'unique_selected', // 不重复随机已选数字
   NAME_LIST: 'name_list',         // 自定义点名列表
+  IMAGE_HISTORY: 'image_history', // 图片历史记录 [{ time, imagePath }]
+  IMAGE_COUNTER: 'image_counter', // 图片点击计数器
 };
 
 /**
@@ -80,6 +82,51 @@ function clearHistory() {
 }
 
 /**
+ * 添加图片历史记录
+ */
+function addImageHistory(imagePath) {
+  const history = wx.getStorageSync(KEYS.IMAGE_HISTORY) || [];
+  history.unshift({
+    time: formatTime(new Date()),
+    imagePath: imagePath
+  });
+  // 最多保留 100 条
+  if (history.length > 100) history.pop();
+  wx.setStorageSync(KEYS.IMAGE_HISTORY, history);
+}
+
+/**
+ * 获取图片历史记录
+ */
+function getImageHistory() {
+  return wx.getStorageSync(KEYS.IMAGE_HISTORY) || [];
+}
+
+/**
+ * 清除图片历史记录
+ */
+function clearImageHistory() {
+  wx.setStorageSync(KEYS.IMAGE_HISTORY, []);
+}
+
+/**
+ * 获取当前图片点击计数并自增
+ */
+function getAndIncrementImageCounter() {
+  let counter = wx.getStorageSync(KEYS.IMAGE_COUNTER) || 0;
+  counter += 1;
+  wx.setStorageSync(KEYS.IMAGE_COUNTER, counter);
+  return counter;
+}
+
+/**
+ * 重置图片计数器
+ */
+function resetImageCounter() {
+  wx.setStorageSync(KEYS.IMAGE_COUNTER, 0);
+}
+
+/**
  * 时间格式化
  */
 function formatTime(date) {
@@ -102,5 +149,10 @@ module.exports = {
   addHistory,
   getHistory,
   clearHistory,
+  addImageHistory,
+  getImageHistory,
+  clearImageHistory,
+  getAndIncrementImageCounter,
+  resetImageCounter,
   formatTime
 };

@@ -1,21 +1,35 @@
-<!-- 随机数字抽签页面 -->
+<!-- 随机数字/图片抽签页面 -->
 <view class="page">
   <view class="nav-bar">
     <text class="back-btn" bindtap="goBack">←</text>
-    <text class="nav-title">随机数字抽签</text>
+    <text class="nav-title">{{imageMode ? '随机图片抽签' : '随机数字抽签'}}</text>
+    <text class="mode-toggle" bindtap="onToggleMode">{{imageMode ? '数字模式' : '图片模式'}}</text>
   </view>
 
   <view class="content">
     <!-- 提示文字 -->
-    <view class="hint-text">请生成随机数</view>
+    <view class="hint-text">{{imageMode ? '随机选择一张图片' : '请生成随机数'}}</view>
 
     <!-- 结果展示区域 -->
     <view class="result-area" wx:if="{{result !== null}}">
-      <view class="result-number" bindlongpress="onResultLongPress">{{result}}</view>
+      <!-- 图片模式结果 -->
+      <image
+        wx:if="{{imageMode && currentImage}}"
+        class="result-image"
+        src="/home/admin/随机/{{currentImage}}"
+        mode="aspectFit"
+        bindlongpress="onResultLongPress"
+      />
+      <!-- 数字模式结果 -->
+      <view
+        wx:else
+        class="result-number"
+        bindlongpress="onResultLongPress"
+      >{{result}}</view>
     </view>
 
-    <!-- 配置区域 -->
-    <view class="config-area">
+    <!-- 配置区域（仅数字模式显示） -->
+    <view class="config-area" wx:if="{{!imageMode}}">
       <view class="config-row">
         <text class="config-label">最小值</text>
         <input class="config-input" type="number" value="{{minValue}}" bindinput="onMinInput" placeholder="0" />
@@ -34,6 +48,11 @@
       </view>
     </view>
 
+    <!-- 图片总数提示（图片模式显示）-->
+    <view class="image-info" wx:if="{{imageMode}}">
+      <text>图片库共 {{imageList.length}} 张图片</text>
+    </view>
+
     <!-- 操作按钮区域 -->
     <view class="action-area">
       <view class="action-row">
@@ -45,7 +64,7 @@
         <view class="action-btn" bindtap="onCopyResult">复制结果</view>
       </view>
       <view class="action-row single">
-        <view class="action-btn" bindtap="onShowHistory">历史去重</view>
+        <view class="action-btn" bindtap="onShowHistory">历史记录</view>
       </view>
     </view>
 
@@ -60,7 +79,13 @@
     <view class="modal-content" catchtap="stopPropagation">
       <view class="modal-title">{{history.length}}条记录</view>
       <scroll-view scroll-y class="history-list">
-        <view class="history-item" wx:for="{{history}}" wx:key="index">
+        <!-- 图片历史记录 -->
+        <view class="history-item" wx:if="{{imageMode}}" wx:for="{{history}}" wx:key="index">
+          <text class="history-time">{{item.time}}</text>
+          <image class="history-image" src="/home/admin/随机/{{item.imagePath}}" mode="aspectFit" />
+        </view>
+        <!-- 数字历史记录 -->
+        <view class="history-item" wx:else wx:for="{{history}}" wx:key="index">
           <text class="history-time">{{item.time}}</text>
           <text class="history-number">{{item.number}}</text>
         </view>

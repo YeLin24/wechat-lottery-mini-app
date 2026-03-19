@@ -74,8 +74,84 @@ function generateUnique(min, max, count, excluded = []) {
   return available.slice(0, Math.min(count, available.length));
 }
 
+/**
+ * 图片目录配置
+ * 注意：微信小程序中图片路径需要使用相对路径或云存储路径
+ * 这里使用绝对路径，实际使用时可能需要根据项目结构调整
+ */
+const IMAGE_DIR = '/home/admin/随机/';
+
+/**
+ * 获取图片目录下的所有图片文件列表
+ * 注意：微信小程序无法直接读取本地文件系统
+ * 需要在后台配置中预设图片列表，或使用云存储
+ * @returns {string[]} 图片路径数组
+ */
+function getImageList() {
+  // 预定义图片列表 (根据 /home/admin/随机/ 目录的实际图片)
+  const defaultImages = [
+    'lQDPJwA6DkU2dLHNCxDNBSSwvdkvpHiCSVcJk0lPoqpEAA_1316_2832.jpg',
+    'lQDPJwdVC47DdLHNCxDNBSSwWPnaStmV0mUJk0lPoqpEAQ_1316_2832.jpg',
+    'lQDPJwriijOJ9LHNCxDNBSSwB70wASyiCBoJk0lPodpyAQ_1316_2832.jpg',
+    'lQDPJxi9kbYptLHNCxDNBSSw1OAwOdNckB4Jk0lPowgLAQ_1316_2832.jpg',
+    'lQDPJxxLEFrwNLHNCxDNBSSwyIGI4ytJVR4Jk0lPodpyAA_1316_2832.jpg',
+    'lQDPJx_Yjv-2tLHNCxDNBSSwkDpN8QROX44Jk0lPowgLAA_1316_2832.jpg',
+    'lQDPJyAzghAw9LHNCxDNBSSwQTlOsyN8nJkJk0lPohAiAA_1316_2832.jpg',
+    'lQDPKcpkrkH2NLHNCxDNBSSw_XJ_bFrbfNcJk0lPoUhTAA_1316_2832.jpg',
+    'lQDPKdsXTkhn9LHNCxDNBSSwkDpN8QROX44Jk0lPowgLAA_1316_2832.jpg',
+    'lQDPKGRQta8M1LHNCxDNBSSwWlUsgruAXNYJk0lPowgLAg_1316_2832.jpg',
+    'lQDPKHJ9l_O0NLHNCxDNBSSwNBszJ_dflUUJk0lPodpyAg_1316_2832.jpg',
+    'lQDPKICzkobONLHNCxDNBSSwqclGRIUr-iEJk0lPom6aAA_1316_2832.jpg'
+  ];
+  return defaultImages;
+}
+
+/**
+ * 随机选择一张图片
+ * @returns {string} 图片文件名
+ */
+function randomImage() {
+  const images = getImageList();
+  if (images.length === 0) return null;
+  const index = Math.floor(Math.random() * images.length);
+  return images[index];
+}
+
+/**
+ * 生成随机结果（支持数字和图片两种模式）
+ * @param {object} options 配置选项
+ * @param {number} options.min 最小值（数字模式）
+ * @param {number} options.max 最大值（数字模式）
+ * @param {boolean} options.imageMode 是否为图片模式
+ * @returns {{ result: string|number, type: 'number'|'image', clickCount: number }}
+ */
+function generateRandom(options = {}) {
+  const { min = 0, max = 10, imageMode = false } = options;
+  const clickCount = storage.getAndIncrementCounter();
+
+  if (imageMode) {
+    const image = randomImage();
+    return {
+      result: image,
+      type: 'image',
+      clickCount: clickCount
+    };
+  }
+
+  // 数字模式
+  const number = randomInt(min, max);
+  return {
+    result: number,
+    type: 'number',
+    clickCount: clickCount
+  };
+}
+
 module.exports = {
   randomInt,
   generateWithRules,
-  generateUnique
+  generateUnique,
+  getImageList,
+  randomImage,
+  generateRandom
 };
