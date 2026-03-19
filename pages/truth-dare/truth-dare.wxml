@@ -1,0 +1,21 @@
+<!-- 真心话大冒险 -->
+<view class="page">
+  <view class="nav-bar">
+    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="nav-title">真心话大冒险</text>
+  </view>
+  <view class="content">
+    <view class="bottle-area">
+      <view class="bottle {{spinning ? 'spinning' : ''}}">
+        <view class="bottle-body">
+          <view class="bottle-neck"></view>
+          <view class="bottle-tip"></view>
+        </view>
+      </view>
+    </view>
+    <view class="action-btn primary" bindtap="onSpin">{{spinning ? '正在抽签...' : '开始转动'}}</view>
+    <view class="rules-text">
+      玩法：点击转动按钮，待瓶子停止转动后，瓶口对准谁，谁就是被抽到的人。抽到的人可选择真心话还是大冒险。
+    </view>
+  </view>
+</view>

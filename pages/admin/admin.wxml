@@ -1,0 +1,79 @@
+<!-- 后台配置页面 -->
+<view class="page">
+  <view class="nav-bar">
+    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="nav-title">后台配置</text>
+  </view>
+
+  <view class="content">
+    <view class="section-title">⚙️ 抽签规则配置</view>
+    <view class="section-desc">设置"点击第N次时出现指定数字"的规则。未配置的次数保持随机。</view>
+
+    <!-- 功能开关 -->
+    <view class="config-card">
+      <view class="config-row">
+        <text class="config-label">规则开关</text>
+        <switch checked="{{config.enabled}}" bindchange="onToggleEnabled" color="#1E90FF" />
+      </view>
+    </view>
+
+    <!-- 现有规则列表 -->
+    <view class="rules-list">
+      <view class="rule-item" wx:for="{{config.rules}}" wx:key="index">
+        <view class="rule-info">
+          <text class="rule-text">第 <text class="highlight">{{item.clickCount}}</text> 次 → 固定数字 <text class="highlight">{{item.fixedNumber}}</text></text>
+        </view>
+        <view class="rule-delete" bindtap="onDeleteRule" data-index="{{index}}">✕</view>
+      </view>
+      <view class="empty-rules" wx:if="{{config.rules.length === 0}}">
+        暂无规则，所有点击将生成随机数字
+      </view>
+    </view>
+
+    <!-- 添加规则 -->
+    <view class="add-rule-card">
+      <view class="card-title">添加新规则</view>
+      <view class="config-row">
+        <text class="config-label">点击第</text>
+        <input class="config-input" type="number" value="{{newClickCount}}" bindinput="onNewClickCountInput" placeholder="3" />
+        <text class="config-label">次时</text>
+      </view>
+      <view class="config-row">
+        <text class="config-label">固定数字为</text>
+        <input class="config-input" type="number" value="{{newFixedNumber}}" bindinput="onNewFixedNumberInput" placeholder="20" />
+      </view>
+      <view class="add-btn" bindtap="onAddRule">添加规则</view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-area">
+      <view class="action-btn" bindtap="onSaveConfig">保存配置</view>
+      <view class="action-btn danger" bindtap="onResetCounter">重置点击计数</view>
+      <view class="action-btn danger" bindtap="onResetAll">恢复默认</view>
+    </view>
+
+    <!-- 当前状态 -->
+    <view class="status-card">
+      <view class="status-title">当前状态</view>
+      <view class="status-item">
+        <text>规则数量：</text>
+        <text class="status-value">{{config.rules.length}}</text>
+      </view>
+      <view class="status-item">
+        <text>当前点击计数：</text>
+        <text class="status-value">{{currentCounter}}</text>
+      </view>
+      <view class="status-item">
+        <text>规则状态：</text>
+        <text class="status-value">{{config.enabled ? '已启用' : '已禁用'}}</text>
+      </view>
+    </view>
+
+    <!-- 配置示例 -->
+    <view class="example-card">
+      <view class="card-title">配置示例（JSON）</view>
+      <textarea class="json-area" value="{{jsonExample}}" disabled />
+      <view class="copy-btn" bindtap="onCopyExample">复制示例</view>
+    </view>
+  </view>
+</view>

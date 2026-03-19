@@ -1,0 +1,27 @@
+.page { min-height: 100vh; background-color: #f5f5f5; }
+.nav-bar { background-color: #87CEEB; padding: 20rpx 30rpx; display: flex; align-items: center; justify-content: center; position: relative; }
+.back-btn { position: absolute; left: 30rpx; font-size: 40rpx; color: #fff; }
+.nav-title { font-size: 34rpx; color: #fff; font-weight: bold; }
+.content { padding: 30rpx; }
+.hint-text { text-align: center; color: #87CEEB; font-size: 28rpx; margin-bottom: 20rpx; }
+.result-area { display: flex; justify-content: center; margin-bottom: 20rpx; }
+.result-badge { background-color: #1E90FF; color: #fff; font-size: 40rpx; font-weight: bold; padding: 24rpx 60rpx; border-radius: 50rpx; }
+.number-display { background-color: #fff; border-radius: 16rpx; padding: 24rpx; margin-bottom: 30rpx; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05); }
+.number-section { margin-bottom: 20rpx; }
+.section-label { font-size: 26rpx; color: #999; margin-bottom: 12rpx; display: block; }
+.number-chips { display: flex; flex-wrap: wrap; gap: 12rpx; }
+.chip { background-color: #f0f0f0; color: #333; font-size: 28rpx; padding: 10rpx 20rpx; border-radius: 8rpx; }
+.chip.selected { background-color: #1E90FF; color: #fff; }
+.empty-text { color: #ccc; font-size: 26rpx; }
+.config-area { background-color: #fff; border-radius: 16rpx; padding: 10rpx 24rpx; margin-bottom: 30rpx; }
+.config-row { display: flex; align-items: center; justify-content: space-between; padding: 24rpx 0; border-bottom: 1rpx solid #f0f0f0; }
+.config-row:last-child { border-bottom: none; }
+.config-label { font-size: 30rpx; color: #333; }
+.config-input { width: 200rpx; text-align: right; font-size: 30rpx; background-color: #f8f8f8; border-radius: 8rpx; padding: 10rpx 16rpx; }
+.action-area { display: flex; flex-direction: column; gap: 16rpx; }
+.action-row { display: flex; gap: 16rpx; }
+.action-row.single { justify-content: center; }
+.action-btn { flex: 1; background-color: #1E90FF; color: #fff; border-radius: 16rpx; padding: 24rpx 0; text-align: center; font-size: 28rpx; }
+.action-btn:active { opacity: 0.8; }
+.action-btn.primary { background-color: #1678d1; font-weight: bold; }
+.action-row.single .action-btn { flex: none; width: 60%; }

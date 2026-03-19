@@ -1,0 +1,30 @@
+.page { min-height: 100vh; background-color: #f5f5f5; }
+.nav-bar { background-color: #87CEEB; padding: 20rpx 30rpx; display: flex; align-items: center; justify-content: center; position: relative; }
+.back-btn { position: absolute; left: 30rpx; font-size: 40rpx; color: #fff; }
+.nav-title { font-size: 36rpx; color: #fff; font-weight: bold; }
+.content { padding: 30rpx; }
+.result-header { text-align: center; margin-bottom: 16rpx; }
+.result-title { font-size: 32rpx; font-weight: bold; color: #333; }
+.pick-history { margin-bottom: 20rpx; }
+.pick-label { font-size: 26rpx; color: #333; }
+.pick-text { font-size: 24rpx; color: #1E90FF; }
+.card-grid { display: flex; flex-wrap: wrap; gap: 16rpx; justify-content: center; margin-bottom: 30rpx; }
+.card-item { width: calc(20% - 14rpx); aspect-ratio: 1; background-color: #1E90FF; border-radius: 16rpx; display: flex; align-items: center; justify-content: center; box-shadow: 0 4rpx 16rpx rgba(30,144,255,0.3); }
+.card-item:active { opacity: 0.8; transform: scale(0.95); }
+.card-item.picked { background-color: #e0e0e0; }
+.card-icon { font-size: 48rpx; }
+.card-number { font-size: 40rpx; color: #fff; font-weight: bold; }
+.card-inner.picked .card-number { color: #1E90FF; }
+.start-area { display: flex; justify-content: center; margin-top: 200rpx; }
+.action-area { display: flex; justify-content: center; margin-top: 30rpx; }
+.action-btn { background-color: #1E90FF; color: #fff; border-radius: 16rpx; padding: 28rpx 80rpx; text-align: center; font-size: 30rpx; }
+.action-btn.primary { font-weight: bold; }
+.action-btn:active { opacity: 0.8; }
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { background-color: #fff; border-radius: 20rpx; padding: 40rpx; width: 80%; border: 2rpx solid #1E90FF; }
+.modal-title { font-size: 34rpx; font-weight: bold; text-align: center; margin-bottom: 30rpx; }
+.setting-row { padding: 16rpx 0; }
+.setting-label { font-size: 28rpx; color: #333; margin-bottom: 10rpx; display: block; }
+.modal-actions { display: flex; gap: 16rpx; margin-top: 30rpx; }
+.modal-btn { flex: 1; background-color: #1E90FF; color: #fff; border-radius: 12rpx; padding: 18rpx 0; text-align: center; font-size: 26rpx; }
+.modal-btn.cancel { background-color: #ccc; }

@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/random-number/random-number",
+    "pages/unique-random/unique-random",
+    "pages/sort-lottery/sort-lottery",
+    "pages/name-picker/name-picker",
+    "pages/guess/guess",
+    "pages/today-eat/today-eat",
+    "pages/friend-guess/friend-guess",
+    "pages/mental-math/mental-math",
+    "pages/truth-dare/truth-dare",
+    "pages/admin/admin"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#87CEEB",
+    "navigationBarTitleText": "随机抽签助手",
+    "navigationBarTextStyle": "white"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

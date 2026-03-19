@@ -1,0 +1,14 @@
+.page { min-height: 100vh; background-color: #f5f5f5; }
+.nav-bar { background-color: #87CEEB; padding: 20rpx 30rpx; display: flex; align-items: center; justify-content: center; position: relative; }
+.back-btn { position: absolute; left: 30rpx; font-size: 40rpx; color: #fff; }
+.nav-title { font-size: 36rpx; color: #fff; font-weight: bold; }
+.content { padding: 30rpx; }
+.hint-text { text-align: center; color: #87CEEB; font-size: 28rpx; margin-bottom: 30rpx; }
+.result-area { display: flex; justify-content: center; margin: 40rpx 0; }
+.result-food { background-color: #1E90FF; color: #fff; font-size: 60rpx; font-weight: bold; padding: 40rpx 80rpx; border-radius: 30rpx; box-shadow: 0 10rpx 40rpx rgba(30,144,255,0.35); animation: popIn 0.3s ease-out; }
+@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.action-area { display: flex; flex-direction: column; gap: 16rpx; margin-top: 40rpx; }
+.action-btn { background-color: #1E90FF; color: #fff; border-radius: 16rpx; padding: 28rpx 0; text-align: center; font-size: 28rpx; display: flex; align-items: center; justify-content: center; gap: 10rpx; }
+.action-btn.primary { font-weight: bold; }
+.action-btn:active { opacity: 0.8; }
+.action-icon { font-size: 32rpx; }

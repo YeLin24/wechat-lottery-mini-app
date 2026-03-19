@@ -1,0 +1,31 @@
+.page { min-height: 100vh; background-color: #f5f5f5; }
+.nav-bar { background-color: #87CEEB; padding: 20rpx 30rpx; display: flex; align-items: center; justify-content: center; position: relative; }
+.back-btn { position: absolute; left: 30rpx; font-size: 40rpx; color: #fff; }
+.nav-title { font-size: 36rpx; color: #fff; font-weight: bold; }
+.content { padding: 30rpx; }
+.mode-buttons { display: flex; gap: 20rpx; margin-bottom: 40rpx; }
+.mode-btn { flex: 1; background-color: #1E90FF; color: #fff; border-radius: 16rpx; padding: 40rpx 0; text-align: center; font-size: 28rpx; display: flex; flex-direction: column; align-items: center; gap: 10rpx; }
+.mode-btn:active { opacity: 0.8; }
+.mode-icon { font-size: 48rpx; }
+.result-area { display: flex; justify-content: center; margin: 60rpx 0; }
+.result-number { background-color: #1E90FF; color: #fff; font-size: 100rpx; font-weight: bold; width: 280rpx; height: 280rpx; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10rpx 40rpx rgba(30,144,255,0.35); animation: popIn 0.3s ease-out; }
+@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.action-area { display: flex; flex-direction: column; gap: 16rpx; }
+.action-btn { background-color: #1E90FF; color: #fff; border-radius: 16rpx; padding: 24rpx 0; text-align: center; font-size: 28rpx; }
+.action-btn.primary { font-weight: bold; }
+.action-btn:active { opacity: 0.8; }
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { background-color: #fff; border-radius: 20rpx; padding: 40rpx; width: 80%; border: 2rpx solid #1E90FF; }
+.modal-title { font-size: 34rpx; font-weight: bold; text-align: center; margin-bottom: 30rpx; }
+.setting-row { padding: 16rpx 0; }
+.setting-label { font-size: 28rpx; color: #333; margin-bottom: 10rpx; display: block; }
+.input-row { display: flex; gap: 12rpx; margin-bottom: 20rpx; }
+.custom-input { flex: 1; background-color: #f8f8f8; border: 2rpx solid #ddd; border-radius: 12rpx; padding: 16rpx; font-size: 28rpx; }
+.add-btn { background-color: #1E90FF; color: #fff; border-radius: 12rpx; padding: 16rpx 24rpx; font-size: 26rpx; }
+.name-list { display: flex; flex-wrap: wrap; gap: 12rpx; margin-bottom: 20rpx; min-height: 60rpx; }
+.name-chip { background-color: #1E90FF; color: #fff; border-radius: 8rpx; padding: 10rpx 16rpx; font-size: 24rpx; display: flex; align-items: center; gap: 8rpx; }
+.remove-btn { font-size: 20rpx; opacity: 0.8; }
+.empty-text { color: #ccc; font-size: 26rpx; }
+.modal-actions { display: flex; gap: 12rpx; margin-top: 20rpx; }
+.modal-btn { flex: 1; background-color: #1E90FF; color: #fff; border-radius: 12rpx; padding: 18rpx 0; text-align: center; font-size: 26rpx; }
+.modal-btn.cancel { background-color: #ccc; }

@@ -1,0 +1,54 @@
+<!-- 随机口算 -->
+<view class="page">
+  <view class="nav-bar">
+    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="nav-title">随机口算</text>
+  </view>
+  <view class="content">
+    <!-- 设置弹窗 -->
+    <view class="modal-overlay" wx:if="{{showSetting}}" bindtap="closeSetting">
+      <view class="modal-content" catchtap="stopPropagation">
+        <view class="modal-title">设置</view>
+        <view class="setting-group">
+          <text class="setting-label">位</text>
+          <view class="setting-options">
+            <view class="option {{digits === 1 ? 'active' : ''}}" bindtap="onSetDigits" data-val="1">个</view>
+            <view class="option {{digits === 2 ? 'active' : ''}}" bindtap="onSetDigits" data-val="2">十</view>
+          </view>
+        </view>
+        <view class="setting-group">
+          <text class="setting-label">运算</text>
+          <view class="setting-options">
+            <view class="option {{operator === '+' ? 'active' : ''}}" bindtap="onSetOp" data-val="+">加</view>
+            <view class="option {{operator === '-' ? 'active' : ''}}" bindtap="onSetOp" data-val="-">减</view>
+            <view class="option {{operator === '×' ? 'active' : ''}}" bindtap="onSetOp" data-val="×">乘</view>
+          </view>
+        </view>
+        <view class="setting-group">
+          <text class="setting-label">数字</text>
+          <view class="setting-options">
+            <view class="option {{numCount === 2 ? 'active' : ''}}" bindtap="onSetNumCount" data-val="2">2个</view>
+            <view class="option {{numCount === 3 ? 'active' : ''}}" bindtap="onSetNumCount" data-val="3">3个</view>
+          </view>
+        </view>
+        <view class="modal-actions">
+          <view class="modal-btn" bindtap="onConfirmSetting">确定</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 题目展示 -->
+    <view class="question-area" wx:if="{{question}}">
+      <view class="question-text">{{question}}=？</view>
+      <view class="answer-area" wx:if="{{showAnswer}}">
+        <text class="answer-text">答案：{{answer}}</text>
+      </view>
+      <view class="action-btn" bindtap="onShowAnswer" wx:if="{{!showAnswer}}">查看答案</view>
+    </view>
+
+    <view class="action-area">
+      <view class="action-btn primary" bindtap="onGenerate">生成题目</view>
+      <view class="action-btn" bindtap="onShare">分享</view>
+    </view>
+  </view>
+</view>

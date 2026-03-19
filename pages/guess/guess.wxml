@@ -1,0 +1,27 @@
+<!-- 猜对错 -->
+<view class="page">
+  <view class="nav-bar">
+    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="nav-title">猜对错</text>
+  </view>
+  <view class="content">
+    <view class="score-area">
+      <view class="score-item correct">
+        <text class="score-icon">✓</text>
+        <text class="score-num">{{correctCount}}</text>
+      </view>
+      <view class="score-item wrong">
+        <text class="score-icon">✗</text>
+        <text class="score-num">{{wrongCount}}</text>
+      </view>
+    </view>
+    <view class="result-display">
+      <text class="result-icon {{resultType}}">{{resultIcon}}</text>
+    </view>
+    <view class="action-area">
+      <view class="action-btn primary" bindtap="onStart">{{running ? '正在猜...' : '点击开始'}}</view>
+      <view class="action-btn" bindtap="onStop" wx:if="{{running}}">停止</view>
+      <view class="action-btn" bindtap="onReset">重置</view>
+    </view>
+  </view>
+</view>

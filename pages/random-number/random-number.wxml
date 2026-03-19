@@ -1,0 +1,75 @@
+<!-- 随机数字抽签页面 -->
+<view class="page">
+  <view class="nav-bar">
+    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="nav-title">随机数字抽签</text>
+  </view>
+
+  <view class="content">
+    <!-- 提示文字 -->
+    <view class="hint-text">请生成随机数</view>
+
+    <!-- 结果展示区域 -->
+    <view class="result-area" wx:if="{{result !== null}}">
+      <view class="result-number" bindlongpress="onResultLongPress">{{result}}</view>
+    </view>
+
+    <!-- 配置区域 -->
+    <view class="config-area">
+      <view class="config-row">
+        <text class="config-label">最小值</text>
+        <input class="config-input" type="number" value="{{minValue}}" bindinput="onMinInput" placeholder="0" />
+      </view>
+      <view class="config-row">
+        <text class="config-label">最大值</text>
+        <input class="config-input" type="number" value="{{maxValue}}" bindinput="onMaxInput" placeholder="10" />
+      </view>
+      <view class="config-row">
+        <text class="config-label">生成个数</text>
+        <input class="config-input" type="number" value="{{count}}" bindinput="onCountInput" placeholder="1" />
+      </view>
+      <view class="config-row">
+        <text class="config-label">允许重复</text>
+        <switch checked="{{allowDuplicate}}" bindchange="onDuplicateChange" color="#1E90FF" />
+      </view>
+    </view>
+
+    <!-- 操作按钮区域 -->
+    <view class="action-area">
+      <view class="action-row">
+        <view class="action-btn" bindtap="onReset">重置</view>
+        <view class="action-btn primary" bindtap="onGenerate">生成</view>
+      </view>
+      <view class="action-row">
+        <view class="action-btn" bindtap="onShareResult">分享结果</view>
+        <view class="action-btn" bindtap="onCopyResult">复制结果</view>
+      </view>
+      <view class="action-row single">
+        <view class="action-btn" bindtap="onShowHistory">历史去重</view>
+      </view>
+    </view>
+
+    <!-- 当前点击次数（调试/提示用） -->
+    <view class="click-info" wx:if="{{clickCount > 0}}">
+      当前第 {{clickCount}} 次抽签
+    </view>
+  </view>
+
+  <!-- 历史记录弹窗 -->
+  <view class="modal-overlay" wx:if="{{showHistory}}" bindtap="closeHistory">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-title">{{history.length}}条记录</view>
+      <scroll-view scroll-y class="history-list">
+        <view class="history-item" wx:for="{{history}}" wx:key="index">
+          <text class="history-time">{{item.time}}</text>
+          <text class="history-number">{{item.number}}</text>
+        </view>
+        <view class="empty-tip" wx:if="{{history.length === 0}}">暂无记录</view>
+      </scroll-view>
+      <view class="modal-actions">
+        <view class="modal-btn danger" bindtap="onClearHistory">清除记录</view>
+        <view class="modal-btn" bindtap="closeHistory">关闭</view>
+      </view>
+    </view>
+  </view>
+</view>

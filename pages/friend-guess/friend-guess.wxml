@@ -1,0 +1,31 @@
+<!-- 好友猜拳 -->
+<view class="page">
+  <view class="nav-bar">
+    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="nav-title">好友猜拳</text>
+  </view>
+  <view class="content">
+    <view class="hint-text">请选择你要出的手势</view>
+    <view class="gesture-area">
+      <view class="gesture-item {{selected === 'rock' ? 'active' : ''}}" bindtap="onSelect" data-type="rock">
+        <text class="gesture-icon">✊</text>
+        <text class="gesture-text">石头</text>
+      </view>
+      <view class="gesture-item {{selected === 'scissors' ? 'active' : ''}}" bindtap="onSelect" data-type="scissors">
+        <text class="gesture-icon">✌️</text>
+        <text class="gesture-text">剪刀</text>
+      </view>
+      <view class="gesture-item {{selected === 'paper' ? 'active' : ''}}" bindtap="onSelect" data-type="paper">
+        <text class="gesture-icon">✋</text>
+        <text class="gesture-text">布</text>
+      </view>
+    </view>
+    <view class="result-area" wx:if="{{result}}">
+      <view class="result-text">{{result}}</view>
+    </view>
+    <view class="action-area">
+      <view class="action-btn primary" bindtap="onShare">发送好友，让其挑战</view>
+      <view class="action-btn" bindtap="onPlay">和手机猜拳</view>
+    </view>
+  </view>
+</view>

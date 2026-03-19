@@ -1,0 +1,67 @@
+<!-- 点名抽签 -->
+<view class="page">
+  <view class="nav-bar">
+    <text class="back-btn" bindtap="goBack">←</text>
+    <text class="nav-title">点名器</text>
+  </view>
+  <view class="content">
+    <view class="mode-buttons">
+      <view class="mode-btn" bindtap="onNumberMode">
+        <text class="mode-icon">123</text>
+        <text>号码点名</text>
+      </view>
+      <view class="mode-btn" bindtap="onCustomMode">
+        <text class="mode-icon">✏️</text>
+        <text>自定义点名</text>
+      </view>
+    </view>
+
+    <!-- 抽签结果 -->
+    <view class="result-area" wx:if="{{result !== null}}">
+      <view class="result-number">{{result}}</view>
+    </view>
+
+    <view class="action-area" wx:if="{{started}}">
+      <view class="action-btn primary" bindtap="onPick">{{picking ? '正在抽签...' : '开始点名'}}</view>
+      <view class="action-btn" bindtap="onReset">重置</view>
+    </view>
+  </view>
+
+  <!-- 号码设置弹窗 -->
+  <view class="modal-overlay" wx:if="{{showNumberSetting}}" bindtap="closeModals">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-title">设置</view>
+      <view class="setting-row">
+        <text class="setting-label">座号范围：1 - {{seatCount}}</text>
+        <slider min="1" max="100" value="{{seatCount}}" activeColor="#1E90FF" bindchange="onSeatCountChange" show-value />
+      </view>
+      <view class="modal-actions">
+        <view class="modal-btn" bindtap="onConfirmNumber">确定</view>
+        <view class="modal-btn cancel" bindtap="closeModals">取消</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 自定义设置弹窗 -->
+  <view class="modal-overlay" wx:if="{{showCustomSetting}}" bindtap="closeModals">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-title">自定义点名</view>
+      <view class="input-row">
+        <input class="custom-input" type="text" value="{{newName}}" bindinput="onNameInput" placeholder="请输入姓名" confirm-type="add" bindconfirm="onAddName" />
+        <view class="add-btn" bindtap="onAddName">添加</view>
+      </view>
+      <view class="name-list">
+        <view class="name-chip" wx:for="{{customNames}}" wx:key="index">
+          <text>{{item}}</text>
+          <text class="remove-btn" bindtap="onRemoveName" data-index="{{index}}">✕</text>
+        </view>
+        <text class="empty-text" wx:if="{{customNames.length === 0}}">所有项（空）</text>
+      </view>
+      <view class="modal-actions">
+        <view class="modal-btn" bindtap="onConfirmCustom">确定</view>
+        <view class="modal-btn" bindtap="onResetNames">重置</view>
+        <view class="modal-btn cancel" bindtap="closeModals">取消</view>
+      </view>
+    </view>
+  </view>
+</view>
